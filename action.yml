@@ -1,0 +1,15 @@
+name: "YAML Compare"
+description: "Compares two YAML files. Fails if they aren't equal."
+inputs:
+  file1Path:
+    description: Path to the first YAML file
+    required: true
+  file2Path:
+    description: Path to the second YAML file
+    required: true
+
+branding:
+  color: "green"
+runs:
+  using: "node16"
+  main: "lib/index.js"
