@@ -4,7 +4,7 @@
   "author": "Oliver King",
   "scripts": {
     "build": "tsc --outDir ./lib --rootDir ./src",
-    "test": "jest"
+    "test": ""
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
