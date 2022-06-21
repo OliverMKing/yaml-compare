@@ -16,7 +16,10 @@ async function run() {
 function getYamlObjs(path: string): any[] {
   core.info(`Loading file ${path}`);
   const file = fs.readFileSync(FILE_1_PATH_INPUT, "utf8");
-  return yaml.loadAll(file);
+  const objs = yaml.loadAll(file);
+
+  core.debug(`File ${path} loaded as: \n${JSON.stringify(objs)}\n`);
+  return objs;
 }
 
 // from https://stackoverflow.com/questions/201183/how-to-determine-equality-for-two-javascript-objects/16788517#16788517
