@@ -1,23 +1,26 @@
 import * as core from "@actions/core";
 import * as fs from "fs";
-import * as yaml from "yaml";
+import * as yaml from "js-yaml";
 import { FILE_1_PATH_INPUT, FILE_2_PATH_INPUT } from "./inputs";
 
 async function run() {
-  core.info(`Loading file ${FILE_1_PATH_INPUT}`);
-  const file1 = fs.readFileSync(FILE_1_PATH_INPUT, "utf8");
-  const file1Obj = yaml.parse(file1);
-
-  core.info(`Loading file ${FILE_2_PATH_INPUT}`);
-  const file2 = fs.readFileSync(FILE_2_PATH_INPUT, "utf8");
-  const file2Obj = yaml.parse(file2);
+  const file1Objs = getYamlObjs(FILE_1_PATH_INPUT);
+  const file2Objs = getYamlObjs(FILE_2_PATH_INPUT);
 
   core.info(`Comparing ${FILE_1_PATH_INPUT} to ${FILE_2_PATH_INPUT}`);
-  if (yaml.stringify(file1Obj) !== yaml.stringify(file2Obj)) {
-    core.setFailed(
-      `${FILE_1_PATH_INPUT}'s YAML is not equal to ${FILE_2_PATH_INPUT}`
-    );
+  if (dumpYamlObjs(file1Objs) !== dumpYamlObjs(file2Objs)) {
+    core.setFailed("YAML files are not equal");
   }
+}
+
+function getYamlObjs(path: string): any[] {
+  core.info(`Loading file ${path}`);
+  const file = fs.readFileSync(FILE_1_PATH_INPUT, "utf8");
+  return yaml.safeLoadAll(file);
+}
+
+function dumpYamlObjs(objs: any[]): string {
+  return objs.map((obj) => yaml.dump(obj)).join("---\n");
 }
 
 run().catch(core.setFailed);
