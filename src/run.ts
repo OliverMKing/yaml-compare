@@ -15,7 +15,7 @@ async function run() {
 
 function getYamlObjs(path: string): any[] {
   core.info(`Loading file ${path}`);
-  const file = fs.readFileSync(FILE_1_PATH_INPUT, "utf8");
+  const file = fs.readFileSync(path, "utf8");
   const objs = yaml.loadAll(file);
 
   core.debug(`File ${path} loaded as: \n${JSON.stringify(objs)}\n`);
