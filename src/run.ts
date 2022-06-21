@@ -9,7 +9,7 @@ async function run() {
 
   core.info(`Comparing ${FILE_1_PATH_INPUT} to ${FILE_2_PATH_INPUT}`);
   if (dumpYamlObjs(file1Objs) !== dumpYamlObjs(file2Objs)) {
-    core.setFailed("YAML files are not equal");
+    throw Error("YAML files are not equal");
   }
 }
 
