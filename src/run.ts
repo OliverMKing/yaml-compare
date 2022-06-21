@@ -16,7 +16,7 @@ async function run() {
 function getYamlObjs(path: string): any[] {
   core.info(`Loading file ${path}`);
   const file = fs.readFileSync(FILE_1_PATH_INPUT, "utf8");
-  return yaml.safeLoadAll(file);
+  return yaml.loadAll(file);
 }
 
 function dumpYamlObjs(objs: any[]): string {
